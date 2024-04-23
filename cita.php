@@ -121,8 +121,23 @@
   <div id="holder" class="row" ></div>
   </div>
   
-  
-  <script type="text/tmpl" id="tmpl">
+  <div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Nombre</th>
+                <th>Motivo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se mostrarán las filas de la tabla dinámicamente -->
+            <?php include("mostrar_citas.php"); ?>
+        </tbody>
+    </table>
+</div>
+  <!-- <script type="text/tmpl" id="tmpl">
     {{ 
     var date = date || new Date(),
         month = date.getMonth(), 
@@ -269,7 +284,7 @@
       </tbody>
       {{ } }}
     </table>
-  </script>
+  </script> -->
   
   
   <script>
@@ -316,7 +331,8 @@
     }
   });
   
-  
+ 
+
   (function ($) {
   
     //t here is a function which gets passed an options object and returns a string of html. I am using quicktmpl to create it based on the template located over in the html block
@@ -555,6 +571,7 @@
   Launch demo modal
 </button>
 
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -566,34 +583,38 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="citaForm">
+        <form id="citaForm" action="registrar_cita.php" method="POST">
           <div class="form-group">
             <label for="nombre">Nombre del paciente</label>
-            <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre del paciente" required>
+            <input type="text" name="cita_nombre"class="form-control" id="nombre" placeholder="Ingrese el nombre del paciente" required>
           </div>
           <div class="form-group">
             <label for="fecha">Fecha de la cita</label>
-            <input type="date" class="form-control" id="fecha" required>
+            <input type="date" name="cita_fecha" class="form-control" id="fecha" required>
           </div>
           <div class="form-group">
             <label for="hora">Hora de la cita</label>
-            <input type="time" class="form-control" id="hora" required>
+            <input type="time" name="cita_hora" class="form-control" id="hora" required>
           </div>
           <div class="form-group">
-            <label for="especialidad">Especialidad médica</label>
-            <select class="form-control" id="especialidad" onchange="mostrarDoctores(this.value)" required>
+            <label for="especialidad">Motivo de cita</label>
+            <select class="form-control" name="cita_especialidad" id="especialidad" onchange="mostrarDoctores(this.value)" required>
               <option value="">Seleccione una especialidad</option>
-              <option value="cardiología">Cardiología</option>
-              <option value="pediatría">Pediatría</option>
-              <option value="ginecología">Ginecología</option>
+              <option value="Spa">Spa</option>
+              <option value="Emergencia">Emergencia</option>
+              <option value="chequeo">Chequeo</option>
               <!-- Agrega más opciones según las especialidades disponibles -->
             </select>
           </div>
-          <div id="doctoresContainer" style="display: none;" class="form-group">
+          <div id="doctoresContainer" name="cita_doctor" style="display: none;" class="form-group">
             <label for="doctores">Seleccione un doctor</label>
             <select class="form-control" id="doctores">
               <!-- Opciones de doctores se cargarán dinámicamente -->
             </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="submit" name="registrar_cita" class="btn btn-primary" onclick="mostrarMensaje()">Guardar Cambios</button>
           </div>
           <!-- Puedes agregar más campos según sea necesario, como descripción de la cita, médico asignado, etc. -->
         </form>
@@ -601,13 +622,12 @@
           Tu cita se ha registrado correctamente.
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" onclick="mostrarMensaje()">Guardar Cambios</button>
-      </div>
+      
     </div>
   </div>
 </div>
+
+
 
 <script>
   function mostrarMensaje() {
@@ -621,28 +641,28 @@
     var doctoresContainer = document.getElementById("doctoresContainer");
     var doctoresSelect = document.getElementById("doctores");
 
-    if (especialidad === "cardiología") {
-      // Si se elige Cardiología, mostrar el select de doctores
+    if (especialidad === "Spa") {
+      // Si se elige Spa, mostrar el select de doctores
       doctoresContainer.style.display = "block";
-      // Opciones de doctores para Cardiología
+      // Opciones de doctores para Spa
       doctoresSelect.innerHTML = `
         <option value="drAliciaCárdenas">Dr. Alicia Cárdenas</option>
         <option value="drCarlosRuiz">Dr. Carlos Ruiz</option>
         <option value="draLuisaGarcía">Dra. Luisa García</option>
       `;
-    } else if (especialidad === "pediatría") {
-      // Si se elige Pediatría, mostrar el select de doctores pediatras
+    } else if (especialidad === "Emergencia") {
+      // Si se elige Emergencia, mostrar el select de doctores pediatras
       doctoresContainer.style.display = "block";
-      // Opciones de doctores para Pediatría
+      // Opciones de doctores para Emergencia
       doctoresSelect.innerHTML = `
         <option value="draSofíaMartínez">Dra. Sofía Martínez</option>
         <option value="drMiguelLópez">Dr. Miguel López</option>
         <option value="draAnaSánchez">Dra. Ana Sánchez</option>
       `;
-    } else if (especialidad === "ginecología") {
-      // Si se elige Ginecología, mostrar el select de doctores ginecólogos
+    } else if (especialidad === "Chequeo") {
+      // Si se elige Chequeo, mostrar el select de doctores ginecólogos
       doctoresContainer.style.display = "block";
-      // Opciones de doctores para Ginecología
+      // Opciones de doctores para Chequeo
       doctoresSelect.innerHTML = `
         <option value="drFernandoRivas">Dr. Fernando Rivas</option>
         <option value="draMaríaGonzález">Dra. María González</option>
