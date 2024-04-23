@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,45 +21,46 @@
                 <button>Registrarse</button>
             </div>
             <div class="wrapper">
-                <form id="login" tabindex="500">
+                <form id="login" action="login.php" method="POST" tabindex="500">
                     <h3>Iniciar sesión</h3>
                     <div class="mail">
-                        <input type="mail" name="">
-                        <label>Correo electrónico o nombre de usuario</label>
+                        <input type="email" name="login_correo">
+                        <label>Correo electrónico</label>
                     </div>
                     <div class="passwd">
-                        <input type="password" name="">
+                        <input type="password" name="login_contraseña">
                         <label>Contraseña</label>
                     </div>
                     <div class="submit">
-                        <button class="dark" href="index.html">Iniciar sesión</button>
+                        <button type="submit" name="login" class="dark">Iniciar sesión</button>
                     </div>
-                    <p><a href="index.html">Regresar</a> a la página principal.</p>
+                    <p><a href="registrar.html">Registrarse</a> si no tienes una cuenta.</p>
                 </form>
-                <form id="register" tabindex="502">
+            
+                <form id="register" action="registrar_usuario.php" method="POST" tabindex="502">
                     <h3>Registrarse</h3>
                     <div class="name">
-                        <input type="text" name="">
+                        <input type="text" name="reg_nombre">
                         <label>Nombre completo</label>
                     </div>
                     <div class="name">
-                        <input type="text" name="">
+                        <input type="text" name="reg_dni">
                         <label>DNI</label>
                     </div>
                     <div class="mail">
-                        <input type="mail" name="">
+                        <input type="email" name="reg_correo">
                         <label>Correo electrónico</label>
                     </div>
                     <div class="uid">
-                        <input type="text" name="">
+                        <input type="text" name="reg_user">
                         <label>Nombre de usuario</label>
                     </div>
                     <div class="passwd">
-                        <input type="password" name="">
+                        <input type="password" name="reg_contraseña">
                         <label>Contraseña</label>
                     </div>
                     <div class="submit">
-                        <button class="dark">Registrarse</button>
+                        <button class="dark" type="submit" name="registrar">Registrarse</button>
                     </div>
                     <p><a href="index.html">Regresar</a> a la página principal.</p>
                 </form>
