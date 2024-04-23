@@ -13,7 +13,7 @@ if(isset($_POST['login'])) {
         // Usuario encontrado, iniciar sesión
         session_start();
         $_SESSION['correo'] = $correo;
-        header("Location: dashboard.php"); // Redirigir al usuario al panel de control
+        header("Location: index.html"); // Redirigir al usuario al panel de control
         exit();
     } else {
         // Usuario no encontrado, mostrar mensaje de error
